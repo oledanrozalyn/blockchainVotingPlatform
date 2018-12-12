@@ -2,37 +2,18 @@ const { Blockchain, Vote } = require('./blockchain');
 const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
 
-function sendVote(myWalletAddress, person) {
-  //const tx0 = new Vote(myWalletAddress, person, 0);
-  alert('success');
-}
-// Your private key goes here
-var myKey = ec.keyFromPrivate('7c4c45907dec40c91bab3480c39032e90049f1a44f3e18c3e07c23e3273995cf');
-
-// From that we can calculate your public key (which doubles as your wallet address)
-const myWalletAddress = myKey.getPublic('hex');
-
-// Create new instance of Blockchain class
 const voteChain = new Blockchain();
 
-// Create a Vote & sign it with your key
-const tx1 = new Vote(myWalletAddress, 'address2', 0);
-tx1.signVote(myKey);
-voteChain.addVote(tx1);
+function sendVote(voteraddress, person, privatekey) {
+  ballot = new Vote(voteraddress, person, 0);
+  var prKey = ec.keyFromPrivate(privatekey);
+  ballot.signVote(prKey);
+  voteChain.addVote(ballot);
+  voteChain.mineVote();
+}
 
-// Mine block
-voteChain.mineVote();
+sendVote("044dc17dfa4e82b872ba3596f489b5749ddf6cb37f2eeefe92e55bf7b14b0dc32f45d8303d01a3cd337e45fedc1a968b766fc4ca43fe2966393506bfb213d8581b", "Stephanie", "68e1c3f30abb352d83849af0785b57b109fe551a2fa11bc89168f2f7d36c76b0");
 
-// Create second Vote
-const tx2 = new Vote(myWalletAddress, 'address1', 0);
-tx2.signVote(myKey);
-voteChain.addVote(tx2);
-
-// Mine block
-voteChain.mineVote();
-
-console.log();
-console.log(`Balance of xavier is ${voteChain.getBalanceOfAddress(myWalletAddress)}`);
 
 // Uncomment this line if you want to test tampering with the chain
 // voteChain.chain[1].Votes[0].amount = 10;
