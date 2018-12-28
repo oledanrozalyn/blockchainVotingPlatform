@@ -23,6 +23,8 @@
     <!-- Custom styles for this template -->
     <link href="css/creative.min.css" rel="stylesheet">
 
+    <link rel="shortcut icon" type="image/png" href="img/logo/favicon.png" />
+
   </head>
 
   <body id="page-top">
