@@ -4,28 +4,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Message;
+use \Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 
 class MessagesController extends Controller
 {
-    public function submit(Request $request) {
-      $this->validate($request, [
-        'name' => 'required',
-        'email' => 'required'
-      ]);
+    public function contactsubmit(Request $request) {
+    	$this->validate($request, [
+    		'name' => 'required',
+    		'message' => 'required'
+    	]);
 
-    $message =new   Message;
-    $message->name = $request ->input('name');
-    $message->email = $request ->input('email');
-    $message->message = $request ->input('message');
+    	return 'Successful contact message';
 
-    $message->save();
+    	}
+  /*    return $request->input('name');
+      return $request->input('message');
+    } */
 
-    return redirect('/')->with('status', 'Message Sent');
-    }
+    public function loginsubmit(Request $request){
+    	$this->validate($request, [
+    		'username' => 'required|',
+    		'password' => 'required'
+    	]);
+    	return 'Successful login';
+ }	
 
-    public function getMessages(){
-      $messages = Message::all();
-
-      return view('messages')->with('messages',$messages);
-    }
+ 		 public function registersubmit(Request $request){
+    	$this->validate($request, [
+    		'firstname' => 'required',
+    		'lastname' => 'required',
+    		'sex' => 'required',
+    		'birthdate' => 'required'
+    	]);
+    	return 'Successful register';
+ }	
+    
 }

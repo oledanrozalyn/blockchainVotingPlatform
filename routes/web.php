@@ -20,4 +20,8 @@ Route::get('/encrypt', 'PagesController@getEncrypt');
 
 Route::get('/messages', 'MessagesController@getMessages');
 
-Route::post('/contact/submit', 'MessagesController@submit');
+Route::post('/contactsubmit', 'MessagesController@contactsubmit');
+
+Route::post('/loginsubmit', 'MessagesController@loginsubmit');
+
+Route::post('/registersubmit', 'MessagesController@registersubmit');
